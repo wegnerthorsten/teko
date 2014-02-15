@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dices
+{
+    class Program
+    {
+        static int rounds;
+        static int savedPoints;
+        static int inTheAir;
+        static int lastDice;
+
+
+        static void Main(string[] args)
+        {
+            rounds = 0;
+            savedPoints = 0;
+            inTheAir = 0;
+            lastDice = 0;
+            prompt();
+        }
+
+        static void prompt()
+        {
+            Console.WriteLine("Anzahl Würfe: " + rounds);
+            Console.WriteLine("Gespeichert: " + savedPoints);
+            Console.WriteLine("In der Luft: " + inTheAir);
+            Console.WriteLine("Letzter Wurf: " + lastDice);
+            if (savedPoints+inTheAir<50)
+            {
+                Console.Write("(S)peichern oder (W)ürfeln? ");
+                string answer = Console.ReadLine();
+                if (answer.StartsWith("s")) save();
+                else roll();
+            }
+        }
+
+        static void roll()
+        {
+            lastDice = new Random().Next(1, 7);
+            if (lastDice < 6) inTheAir += lastDice;
+            else inTheAir = 0;
+            rounds++;
+            prompt();
+        }
+
+        static void save()
+        {
+            savedPoints += inTheAir - 5;
+            inTheAir = 0;
+            if (savedPoints < 0) savedPoints = 0;
+            prompt();
+        }
+    }
+}
