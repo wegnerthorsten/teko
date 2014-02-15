@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Wieviele Steine ?");
+            int stones = Int32.Parse(Console.ReadLine());
+            Hanoi(stones, 1,3);
+            Console.ReadKey();
+        }
+        
+        static void Hanoi(int n, int from, int to){
+            if(n>1) Hanoi(n-1 ,from, 6 -from - to);
+            Console.WriteLine("Move" + n + "from" + to, to );
+            if(n>1) Hanoi(n-1, 6-from-to,to);
+        }
+    }
+}
