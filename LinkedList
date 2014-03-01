@@ -1,0 +1,96 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace linked_list
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            LinkedList li = new LinkedList();
+            li.Add(1);
+            li.Add(2);
+        }
+    }
+
+    public class LinkedList
+    {
+        // Nur mit primitive Datentypen sind wir im Stack
+        // root Pointer zeigt auf das erste element
+        private ListItem root; // Wir befinden uns Heap und können nur Adressenübergeben
+        
+        public LinkedList()
+        {   //Pointer auf null 
+            root = null;
+        }
+         /*
+          *Methode  zum hinzufügen 
+          */
+        public void Add(int i){
+            //neue Liste erstellen
+            ListItem item = new ListItem();
+            //ein Wert hinzufügen
+            item.data = i;
+            // Das nächste Element auf null setzten
+            item.next = null; // Kann weggelassen, ist nur zum zeigen das der next null ist
+            // ist root 0 null, 
+            if (root == null)
+            {   // Root ist das erste Element
+                root = item; // Die Adresse wird übergeben, somit zeigt root auf das Element item Pointer
+            }
+            else
+            {   // root ist das erste element
+                ListItem tmp = root;
+                //Durchlaufe die Liste bis zum letzten Element== null
+                while (tmp.next != null) tmp = tmp.next;
+                tmp.next = item;
+            }
+        }
+
+        public void Remove(int i)
+        {
+            // das erste element root den Wert hat
+            if (root.data == i)
+            {
+                root = root.next;
+            }
+            else{
+                ListItem tmp = root;
+                // dem sein Nachfolger ist nicht im Nirvana es hat ein nächste element, dem sein Nachfolger hat ein nächstes
+                while (tmp.next != null && tmp.next.data != i)
+                {
+                    tmp = tmp.next;
+                }
+                //
+                if (tmp.next == null)
+                {
+                    return;
+                }
+                tmp.next = tmp.next.next;
+            }
+        }
+
+        public int count()
+        {
+            int count = 0;
+            ListItem tmp = root;
+                while (tmp != null)
+                {
+                    tmp = tmp.next;
+                    count++;
+                }
+            return count;
+        }
+
+        private class ListItem
+        {
+            //Feld Datencontainer
+            public int data;
+            // Feld für den Pointer, zeigt das nächste auf das Element
+            public ListItem next;
+        }
+    } 
+}
