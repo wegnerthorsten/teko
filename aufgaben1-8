@@ -1,0 +1,169 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Text.RegularExpressions;
+
+namespace aufgaben_2014_01_11
+{
+    class Program
+    {
+          static int zahl = 0;
+          static int zuZahl = 0; 
+          static int zufallsZahl = 0;
+          static int zaehler = 0;
+          static string paladium = "";
+          static string reversePaladium = "";
+
+
+        static void Main(string[] args)
+        {  
+           // zufall();
+            /*Aufgabe 1 und 2*/
+            /*  Console.WriteLine("Hello world\n");
+              for (byte i = 50; i < 71; i++)
+              {
+                  Console.WriteLine(berechne(i));
+              }
+              Console.ReadLine();
+          }
+
+
+          public static int berechne(byte a)
+          {
+              return (a * a);
+          }
+
+         Aufgabe 3
+          public static void zufall(){
+
+              zufallsZahl = new Random().Next(0, 100);
+           
+              do
+              {
+                  Console.WriteLine("Bitte erraten Sie eine Zufallszahl :");
+
+                  try
+                  {
+                      zahl = Convert.ToInt32(Console.ReadLine());
+                  }catch
+                  {
+                      Console.WriteLine("Der eingegeben Wert ist keine Zahl");
+                    
+                  }
+               
+                  Console.WriteLine(zufallsZahl);
+                  Console.WriteLine();
+                  if (zahl > zufallsZahl)
+                  {
+                      Console.WriteLine("Die Eingegebene Zahl ist zu hoch " + zahl + "\n");
+                      zaehler++;
+                  }
+                  if (zahl < zufallsZahl)
+                  {
+                      Console.WriteLine("Die Eingegebene Zahl ist zu klein " + zahl + "\n");
+                      zaehler++;
+                  }
+                  else
+                  {
+                      Console.WriteLine("Sie haben die Zahl richtig "+ zahl + " erraten und " + zaehler + " Versuche gebraucht\n");
+                  }
+              }
+              while (zufallsZahl != zahl);
+          */
+
+            /*Aufgabe 4
+             Console.WriteLine("Geben sie einen Paladium ein");
+             paladium = Console.ReadLine();
+           
+             //reversePaladium = Array.Reverse(paladium);
+             char[] arr1 = paladium.ToCharArray();
+             char[] arr2 = paladium.ToCharArray();
+             Array.Reverse(arr1);
+
+             string result = arr1.ToString();
+             Console.log(string.Compare(result, arr1));
+             */
+
+            /* Aufgabe 6*/
+            string text;
+            string buchstabe;
+            string dateinamen;
+            long anzahl;
+           
+
+            /*
+            Console.WriteLine("Geben sie einen Text ein");
+            text = Console.ReadLine();
+            Console.WriteLine("Geben sie einen Buchstaben ein");
+            buchstabe = Console.ReadLine();
+            anzahl =  text.IndexOf(buchstabe);
+            Console.WriteLine(anzahl);
+            Console.ReadLine();
+            */
+            /*Aufgabe 6 mit Textdatei*/
+            string dateiText;
+            Console.WriteLine("Geben sie einen Dateinamen ein");
+            dateinamen = Console.ReadLine();
+            //dateiText = File.ReadAllText(dateinamen);
+            anzahl = CountLinesInString(File.ReadAllText(dateinamen));
+            Console.WriteLine(anzahl);
+            Console.WriteLine(CountWords2(File.ReadAllText(dateinamen)));
+            Console.WriteLine(CountSentence(File.ReadAllText(dateinamen)));
+
+            Console.ReadLine();
+        }
+
+        static long CountLinesInString(string s)
+        {
+            long count = 1;
+            int start = 0;
+            while ((start = s.IndexOf('\n', start)) != -1)
+            {
+                count++;
+                start++;
+            }
+            return count;
+        }
+
+
+        /// <summary>
+        /// Count word with loop and character tests.
+        /// </summary>
+        public static int CountWords2(string s)
+        {
+            int c = 0;
+            for (int i = 1; i < s.Length; i++)
+            {
+                if (char.IsWhiteSpace(s[i - 1]) == true)
+                {
+                    if (char.IsLetterOrDigit(s[i]) == true ||
+                        char.IsPunctuation(s[i]))
+                    {
+                        c++;
+                    }
+                }
+            }
+            if (s.Length > 2)
+            {
+                c++;
+            }
+            return c;
+        }
+
+        /// <summary>
+        /// Count words with Regex.
+        /// </summary>
+        public static int CountSentence(string s)
+        {
+            MatchCollection collection = Regex.Matches(s, @".");
+            return collection.Count;
+        }
+       
+
+     
+    }
+       
+}
